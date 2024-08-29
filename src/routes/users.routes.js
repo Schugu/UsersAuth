@@ -13,6 +13,7 @@ export const createUserRouter = ({ userModel }) => {
 
   usersRouter.get('/users', userController.getAll);
 
+  usersRouter.post('/register', validateSchema(userSchema), userController.register);
 
   return usersRouter;
 }

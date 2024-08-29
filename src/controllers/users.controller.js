@@ -19,4 +19,32 @@ export class UserController {
       return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
     }
   }
+
+
+
+  register = async (req, res) => {
+    const { username, email, password } = req.body;
+    try {
+      const result = await this.userModel.register({ username, email, password });
+
+      if (!result) {
+        return res.status(400).json({ message: "Error al registrarse." });
+      }
+
+      if (result.usernameExists) {
+        return res.status(400).json({ message: `Ya existe un usuario con el username: ${username}` });
+      }
+  
+      if (result.emailExists) {
+        return res.status(400).json({ message: `Ya existe un usuario con el email: ${email}` });
+      }
+
+      
+      res.json(result);
+
+    } catch (error) {
+      return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
+    }
+  }
+
 }
