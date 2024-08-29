@@ -20,5 +20,5 @@ export const userSchema = z.object({
     .regex(/[a-z]/, { message: "La contraseña debe contener al menos una letra minúscula." })
     .regex(/[A-Z]/, { message: "La contraseña debe contener al menos una letra mayúscula." })
     .regex(/\d/, { message: "La contraseña debe contener al menos un número." })
-    .regex(/[@$!%*?&]/, { message: "La contraseña debe contener al menos un carácter especial (@, $, !, %, *, ?, &)." })
+    .regex(/[@$!%*?&.]/, { message: "La contraseña debe contener al menos un carácter especial (@, $, !, %, *, ?, &, .)." })
 });
