@@ -68,4 +68,25 @@ export class UserModel {
       throw new Error('Error al registrarse.');
     }
   }
+
+  static async login({ username, password }) {
+    const [user] = await connection.query(
+      `SELECT BIN_TO_UUID(id) as id, username, email, password, created_at FROM user WHERE username = ?`,
+      [username]
+    );
+
+    if (user.length === 0) {
+      return { userNotExists: true };
+    }
+
+    const isValid = await bcrypt.compare(password, user[0].password);
+
+    if (!isValid) {
+      return { notValid: true };
+    }
+
+    const { password: _, ...publicUser } = user[0];
+
+    return publicUser;
+  }
 }

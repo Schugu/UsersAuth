@@ -22,3 +22,8 @@ export const userSchema = z.object({
     .regex(/\d/, { message: "La contraseña debe contener al menos un número." })
     .regex(/[@$!%*?&.]/, { message: "La contraseña debe contener al menos un carácter especial (@, $, !, %, *, ?, &, .)." })
 });
+
+export const loginSchema = userSchema.pick({
+  username: true,
+  password: true
+});
