@@ -1,7 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import logger from 'morgan'
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
 
 import { createUserRouter } from './routes/users.routes.js';
 
@@ -12,6 +13,7 @@ export const createApp = ({ userModel }) => {
   const HOST = process.env.HOST ?? 'localhost';
   const CORS_ORIGIN = process.env.CORS_ORIGIN ?? 'http://localhost:5173';
 
+
   const app = express();
 
   app.use(cors({
@@ -21,6 +23,7 @@ export const createApp = ({ userModel }) => {
 
   app.disable('x-powered-by');
   app.use(express.json());
+  app.use(cookieParser());
   app.use(express.urlencoded({ extended: true }));
   app.use(logger("dev"));
 

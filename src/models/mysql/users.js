@@ -76,7 +76,7 @@ export class UserModel {
     );
 
     if (user.length === 0) {
-      return { userNotExists: true };
+      return { notExists: true };
     }
 
     const isValid = await bcrypt.compare(password, user[0].password);
